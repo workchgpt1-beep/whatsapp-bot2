@@ -1,3 +1,11 @@
+const fs = require('fs');
+const { execSync } = require('child_process');
+
+if (process.env.AUTH_B64) {
+  fs.writeFileSync('auth.tar.gz', Buffer.from(process.env.AUTH_B64, 'base64'));
+  execSync('tar -xzf auth.tar.gz');
+  console.log('✅ Auth session restored from environment variable');
+}
 
 const { makeWASocket, useMultiFileAuthState, DisconnectReason } = require("@whiskeysockets/baileys");
 const { Boom } = require("@hapi/boom");
